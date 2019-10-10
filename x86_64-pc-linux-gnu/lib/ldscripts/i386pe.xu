@@ -4,7 +4,7 @@
    are permitted in any medium without royalty provided the copyright
    notice and this notice are preserved.  */
 OUTPUT_FORMAT(pe-i386)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/x86_64-pep/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/x86_64-pep/lib");
 SECTIONS
 {
   .text  :

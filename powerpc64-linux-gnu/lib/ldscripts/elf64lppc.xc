@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf64-powerpcle", "elf64-powerpcle",
 	      "elf64-powerpcle")
 OUTPUT_ARCH(powerpc:common64)
 ENTRY(_start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc64le-linux-gnu/lib64le"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc64le-linux-gnu/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc64le-linux-gnu/lib64le"); SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc64le-linux-gnu/lib");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

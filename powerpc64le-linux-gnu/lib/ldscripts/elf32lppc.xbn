@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf32-powerpcle", "elf32-powerpcle",
 	      "elf32-powerpcle")
 OUTPUT_ARCH(powerpc:common)
 ENTRY(_start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpcle-linux-gnu/lib32"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpcle-linux-gnu/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpcle-linux-gnu/lib32"); SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpcle-linux-gnu/lib");
 PROVIDE (__stack = 0); PROVIDE (___stack = 0);
 SECTIONS
 {

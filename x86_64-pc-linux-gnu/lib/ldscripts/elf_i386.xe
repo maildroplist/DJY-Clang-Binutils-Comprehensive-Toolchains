@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf32-i386", "elf32-i386",
 	      "elf32-i386")
 OUTPUT_ARCH(i386)
 ENTRY(_start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/i386-pc-linux-gnu/lib32"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/x86_64-pc-linux-gnu/lib32"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/lib32"); SEARCH_DIR("/usr/local/lib32"); SEARCH_DIR("/lib32"); SEARCH_DIR("/usr/lib32"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/i386-pc-linux-gnu/lib"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/lib"); SEARCH_DIR("/usr/local/lib"); SEARCH_DIR("/lib"); SEARCH_DIR("/usr/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/i386-pc-linux-gnu/lib32"); SEARCH_DIR("/root/Desktop/DJY-Clang10/x86_64-pc-linux-gnu/lib32"); SEARCH_DIR("/root/Desktop/DJY-Clang10/lib32"); SEARCH_DIR("/usr/local/lib32"); SEARCH_DIR("/lib32"); SEARCH_DIR("/usr/lib32"); SEARCH_DIR("/root/Desktop/DJY-Clang10/i386-pc-linux-gnu/lib"); SEARCH_DIR("/root/Desktop/DJY-Clang10/lib"); SEARCH_DIR("/usr/local/lib"); SEARCH_DIR("/lib"); SEARCH_DIR("/usr/lib");
 SECTIONS
 {
   PROVIDE (__executable_start = SEGMENT_START("text-segment", 0x08048000)); . = SEGMENT_START("text-segment", 0x08048000) + SIZEOF_HEADERS;

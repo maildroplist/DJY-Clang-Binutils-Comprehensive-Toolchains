@@ -501,6 +501,8 @@ OPTION(prefix_1, "emit-llvm-uselists", emit_llvm_uselists, Flag, INVALID, INVALI
        "Preserve order of LLVM use-lists when serializing", nullptr, nullptr)
 OPTION(prefix_1, "emit-llvm", emit_llvm, Flag, Action_Group, INVALID, nullptr, CC1Option, 0,
        "Use the LLVM representation for assembler and object files", nullptr, nullptr)
+OPTION(prefix_1, "emit-merged-ifs", emit_merged_ifs, Flag, Action_Group, INVALID, nullptr, CC1Option, 0,
+       "Generate Interface Stub Files, emit merged text not binary.", nullptr, nullptr)
 OPTION(prefix_1, "emit-module-interface", emit_module_interface, Flag, Action_Group, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Generate pre-compiled module file from a C++ module interface", nullptr, nullptr)
 OPTION(prefix_1, "emit-module", emit_module, Flag, Action_Group, INVALID, nullptr, CC1Option | NoDriverOption, 0,
@@ -509,7 +511,7 @@ OPTION(prefix_1, "emit-obj", emit_obj, Flag, Action_Group, INVALID, nullptr, CC1
        "Emit native object files", nullptr, nullptr)
 OPTION(prefix_1, "emit-pch", emit_pch, Flag, Action_Group, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Generate pre-compiled header file", nullptr, nullptr)
-OPTION(prefix_1, "enable-trivial-auto-var-init-zero-knowing-it-will-be-removed-from-clang", enable_trivial_var_init_zero, Joined, INVALID, INVALID, nullptr, CC1Option | CoreOption, 0,
+OPTION(prefix_1, "enable-trivial-auto-var-init-zero-knowing-it-will-be-removed-from-clang", enable_trivial_var_init_zero, Flag, INVALID, INVALID, nullptr, CC1Option | CoreOption, 0,
        "Trivial automatic variable initialization to zero is only here for benchmarks, it'll eventually be removed, and I'm OK with that because I'm only using it to benchmark", nullptr, nullptr)
 OPTION(prefix_3, "encoding=", _encoding_EQ, Joined, INVALID, fencoding_EQ, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_3, "encoding", _encoding, Separate, INVALID, fencoding_EQ, nullptr, 0, 0, nullptr, nullptr, nullptr)
@@ -1622,7 +1624,6 @@ OPTION(prefix_1, "fopenmp-cuda-force-full-runtime", fopenmp_cuda_force_full_runt
 OPTION(prefix_1, "fopenmp-cuda-mode", fopenmp_cuda_mode, Flag, f_Group, INVALID, nullptr, CC1Option | NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fopenmp-cuda-number-of-sm=", fopenmp_cuda_number_of_sm_EQ, Joined, f_Group, INVALID, nullptr, CC1Option | NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fopenmp-cuda-teams-reduction-recs-num=", fopenmp_cuda_teams_reduction_recs_num_EQ, Joined, f_Group, INVALID, nullptr, CC1Option | NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
-OPTION(prefix_1, "fopenmp-dump-offload-linker-script", fopenmp_dump_offload_linker_script, Flag, f_Group, INVALID, nullptr, NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fopenmp-host-ir-file-path", fopenmp_host_ir_file_path, Separate, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Path to the IR file produced by the frontend for the host.", nullptr, nullptr)
 OPTION(prefix_1, "fopenmp-is-device", fopenmp_is_device, Flag, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,

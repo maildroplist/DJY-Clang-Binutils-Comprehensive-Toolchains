@@ -1110,7 +1110,9 @@ Record.push_back(SA->getDevType());
 Record.push_back(SA->getCtxSelectorSet());
 Record.push_back(SA->getCtxScore());
 Record.push_back(SA->getCtxSelector());
-    Record.AddString(SA->getImplVendor());
+    Record.push_back(SA->implVendors_size());
+    for (auto &Val : SA->implVendors())
+      Record.AddString(Val);
     break;
   }
   case attr::OMPReferencedVar: {

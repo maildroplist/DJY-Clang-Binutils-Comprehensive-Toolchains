@@ -8847,32 +8847,32 @@ public:
 private:
   CtxSelectorType ctxSelector;
 
-unsigned implVendorLength;
-char *implVendor;
+  unsigned implVendors_Size;
+  StringRef *implVendors_;
 
 public:
-  static OMPDeclareVariantAttr *CreateImplicit(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, llvm::StringRef ImplVendor, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
-    auto *A = new (Ctx) OMPDeclareVariantAttr(Ctx, CommonInfo, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendor);
+  static OMPDeclareVariantAttr *CreateImplicit(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, StringRef *ImplVendors, unsigned ImplVendorsSize, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
+    auto *A = new (Ctx) OMPDeclareVariantAttr(Ctx, CommonInfo, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendors, ImplVendorsSize);
     A->setImplicit(true);
     if (!A->isAttributeSpellingListCalculated() && !A->getAttrName())
       A->setAttributeSpellingListIndex(0);
     return A;
   }
 
-  static OMPDeclareVariantAttr *Create(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, llvm::StringRef ImplVendor, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
-    auto *A = new (Ctx) OMPDeclareVariantAttr(Ctx, CommonInfo, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendor);
+  static OMPDeclareVariantAttr *Create(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, StringRef *ImplVendors, unsigned ImplVendorsSize, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
+    auto *A = new (Ctx) OMPDeclareVariantAttr(Ctx, CommonInfo, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendors, ImplVendorsSize);
     if (!A->isAttributeSpellingListCalculated() && !A->getAttrName())
       A->setAttributeSpellingListIndex(0);
     return A;
   }
 
-  static OMPDeclareVariantAttr *CreateImplicit(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, llvm::StringRef ImplVendor, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
+  static OMPDeclareVariantAttr *CreateImplicit(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, StringRef *ImplVendors, unsigned ImplVendorsSize, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
     AttributeCommonInfo I(Range, NoSemaHandlerAttribute, Syntax);
-    return CreateImplicit(Ctx, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendor, I);
+    return CreateImplicit(Ctx, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendors, ImplVendorsSize, I);
   }
-  static OMPDeclareVariantAttr *Create(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, llvm::StringRef ImplVendor, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
+  static OMPDeclareVariantAttr *Create(ASTContext &Ctx, Expr * VariantFuncRef, Expr * Score, CtxSelectorSetType CtxSelectorSet, ScoreType CtxScore, CtxSelectorType CtxSelector, StringRef *ImplVendors, unsigned ImplVendorsSize, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
     AttributeCommonInfo I(Range, NoSemaHandlerAttribute, Syntax);
-    return Create(Ctx, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendor, I);
+    return Create(Ctx, VariantFuncRef, Score, CtxSelectorSet, CtxScore, CtxSelector, ImplVendors, ImplVendorsSize, I);
   }
   OMPDeclareVariantAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
               , Expr * VariantFuncRef
@@ -8880,7 +8880,7 @@ public:
               , CtxSelectorSetType CtxSelectorSet
               , ScoreType CtxScore
               , CtxSelectorType CtxSelector
-              , llvm::StringRef ImplVendor
+              , StringRef *ImplVendors, unsigned ImplVendorsSize
              )
     : InheritableAttr(Ctx, CommonInfo, attr::OMPDeclareVariant, false, true)
               , variantFuncRef(VariantFuncRef)
@@ -8888,10 +8888,17 @@ public:
               , ctxSelectorSet(CtxSelectorSet)
               , ctxScore(CtxScore)
               , ctxSelector(CtxSelector)
-              , implVendorLength(ImplVendor.size()),implVendor(new (Ctx, 1) char[implVendorLength])
+              , implVendors_Size(ImplVendorsSize), implVendors_(new (Ctx, 16) StringRef[implVendors_Size])
   {
-      if (!ImplVendor.empty())
-        std::memcpy(implVendor, ImplVendor.data(), implVendorLength);
+    for (size_t I = 0, E = implVendors_Size; I != E;
+         ++I) {
+      StringRef Ref = ImplVendors[I];
+      if (!Ref.empty()) {
+        char *Mem = new (Ctx, 1) char[Ref.size()];
+        std::memcpy(Mem, Ref.data(), Ref.size());
+        implVendors_[I] = StringRef(Mem, Ref.size());
+      }
+    }
   }
 
   OMPDeclareVariantAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
@@ -8907,7 +8914,7 @@ public:
               , ctxSelectorSet(CtxSelectorSet)
               , ctxScore(CtxScore)
               , ctxSelector(CtxSelector)
-              , implVendorLength(0),implVendor(nullptr)
+              , implVendors_Size(0), implVendors_(nullptr)
   {
   }
 
@@ -8992,18 +8999,12 @@ public:
     }
     llvm_unreachable("No enumerator with that value");
   }
-  llvm::StringRef getImplVendor() const {
-    return llvm::StringRef(implVendor, implVendorLength);
-  }
-  unsigned getImplVendorLength() const {
-    return implVendorLength;
-  }
-  void setImplVendor(ASTContext &C, llvm::StringRef S) {
-    implVendorLength = S.size();
-    this->implVendor = new (C, 1) char [implVendorLength];
-    if (!S.empty())
-      std::memcpy(this->implVendor, S.data(), implVendorLength);
-  }
+  typedef StringRef* implVendors_iterator;
+  implVendors_iterator implVendors_begin() const { return implVendors_; }
+  implVendors_iterator implVendors_end() const { return implVendors_ + implVendors_Size; }
+  unsigned implVendors_size() const { return implVendors_Size; }
+  llvm::iterator_range<implVendors_iterator> implVendors() const { return llvm::make_range(implVendors_begin(), implVendors_end()); }
+
 
 
     void printScore(raw_ostream & OS, const PrintingPolicy &Policy) const {
@@ -9031,7 +9032,11 @@ public:
         case CtxVendor:
           OS << "vendor(";
           printScore(OS, Policy);
-          OS << getImplVendor();
+          if (implVendors_size() > 0) {
+            OS << *implVendors(). begin();
+            for (StringRef VendorName : llvm::drop_begin(implVendors(), 1))
+              OS << ", " << VendorName;
+          }
           OS << ")";
           break;
         case CtxUnknown:

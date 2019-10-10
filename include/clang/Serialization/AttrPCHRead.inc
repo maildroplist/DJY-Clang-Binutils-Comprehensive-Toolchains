@@ -1470,8 +1470,16 @@
     OMPDeclareVariantAttr::CtxSelectorSetType ctxSelectorSet(static_cast<OMPDeclareVariantAttr::CtxSelectorSetType>(Record.readInt()));
     OMPDeclareVariantAttr::ScoreType ctxScore(static_cast<OMPDeclareVariantAttr::ScoreType>(Record.readInt()));
     OMPDeclareVariantAttr::CtxSelectorType ctxSelector(static_cast<OMPDeclareVariantAttr::CtxSelectorType>(Record.readInt()));
-    std::string implVendor= Record.readString();
-    New = new (Context) OMPDeclareVariantAttr(Context, Info, variantFuncRef, score, ctxSelectorSet, ctxScore, ctxSelector, implVendor);
+    unsigned implVendorsSize = Record.readInt();
+    SmallVector<StringRef, 4> implVendors;
+    implVendors.reserve(implVendorsSize);
+    SmallVector<std::string, 4> implVendorsStorage;
+    implVendorsStorage.reserve(implVendorsSize);
+    for (unsigned i = 0; i != implVendorsSize; ++i)
+      implVendorsStorage.push_back(Record.readString());
+    for (unsigned i = 0; i != implVendorsSize; ++i)
+      implVendors.push_back(implVendorsStorage[i]);
+    New = new (Context) OMPDeclareVariantAttr(Context, Info, variantFuncRef, score, ctxSelectorSet, ctxScore, ctxSelector, implVendors.data(), implVendorsSize);
     cast<InheritableAttr>(New)->setInherited(isInherited);
     New->setImplicit(isImplicit);
     break;

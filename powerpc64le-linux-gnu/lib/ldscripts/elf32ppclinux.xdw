@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf32-powerpc", "elf32-powerpc",
 	      "elf32-powerpc")
 OUTPUT_ARCH(powerpc:common)
 ENTRY(_start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc-linux-gnu/lib32be"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc-linux-gnu/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc-linux-gnu/lib32be"); SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc-linux-gnu/lib");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

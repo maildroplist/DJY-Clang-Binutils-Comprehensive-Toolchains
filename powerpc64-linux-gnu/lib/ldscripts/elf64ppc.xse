@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf64-powerpc", "elf64-powerpc",
 	      "elf64-powerpc")
 OUTPUT_ARCH(powerpc:common64)
 ENTRY(_start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc64-linux-gnu/lib64"); SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/powerpc64-linux-gnu/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc64-linux-gnu/lib64"); SEARCH_DIR("/root/Desktop/DJY-Clang10/powerpc64-linux-gnu/lib");
 SECTIONS
 {
   . = SEGMENT_START("text-segment", 0) + SIZEOF_HEADERS;

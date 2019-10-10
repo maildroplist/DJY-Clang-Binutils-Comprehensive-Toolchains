@@ -1435,6 +1435,7 @@
     bpf_load_byte,                             // llvm.bpf.load.byte
     bpf_load_half,                             // llvm.bpf.load.half
     bpf_load_word,                             // llvm.bpf.load.word
+    bpf_preserve_field_info,                   // llvm.bpf.preserve.field.info
     bpf_pseudo,                                // llvm.bpf.pseudo
     hexagon_A2_abs,                            // llvm.hexagon.A2.abs
     hexagon_A2_absp,                           // llvm.hexagon.A2.absp
@@ -5846,6 +5847,7 @@
     wasm_rethrow_in_catch,                     // llvm.wasm.rethrow.in.catch
     wasm_sub_saturate_signed,                  // llvm.wasm.sub.saturate.signed
     wasm_sub_saturate_unsigned,                // llvm.wasm.sub.saturate.unsigned
+    wasm_swizzle,                              // llvm.wasm.swizzle
     wasm_throw,                                // llvm.wasm.throw
     wasm_tls_align,                            // llvm.wasm.tls.align
     wasm_tls_base,                             // llvm.wasm.tls.base

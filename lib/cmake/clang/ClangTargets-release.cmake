@@ -331,6 +331,15 @@ set_target_properties(clang-offload-bundler PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS clang-offload-bundler )
 list(APPEND _IMPORT_CHECK_FILES_FOR_clang-offload-bundler "${_IMPORT_PREFIX}/bin/clang-offload-bundler" )
 
+# Import target "clang-offload-wrapper" for configuration "Release"
+set_property(TARGET clang-offload-wrapper APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(clang-offload-wrapper PROPERTIES
+  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/bin/clang-offload-wrapper"
+  )
+
+list(APPEND _IMPORT_CHECK_TARGETS clang-offload-wrapper )
+list(APPEND _IMPORT_CHECK_FILES_FOR_clang-offload-wrapper "${_IMPORT_PREFIX}/bin/clang-offload-wrapper" )
+
 # Import target "clang-scan-deps" for configuration "Release"
 set_property(TARGET clang-scan-deps APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(clang-scan-deps PROPERTIES

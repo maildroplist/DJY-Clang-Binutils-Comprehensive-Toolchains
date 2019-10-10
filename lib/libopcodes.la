@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libopcodes-2.33.50.20191008.so'
+dlname='libopcodes-2.33.50.20191010.so'
 
 # Names of this library.
-library_names='libopcodes-2.33.50.20191008.so libopcodes-2.33.50.20191008.so libopcodes.so'
+library_names='libopcodes-2.33.50.20191010.so libopcodes-2.33.50.20191010.so libopcodes.so'
 
 # The name of the static archive.
 old_library='libopcodes.a'
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/root/Android/Toolchains/out/binutils/multiarch/lib'
+libdir='/root/Desktop/DJY-Clang10/lib'

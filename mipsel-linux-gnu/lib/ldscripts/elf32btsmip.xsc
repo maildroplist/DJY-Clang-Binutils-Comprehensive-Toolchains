@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf32-tradbigmips", "elf32-tradbigmips",
 	      "elf32-tradlittlemips")
 OUTPUT_ARCH(mips)
 ENTRY(__start)
-SEARCH_DIR("/root/Android/Toolchains/out/binutils/multiarch/mipsel-linux-gnu/lib");
+SEARCH_DIR("/root/Desktop/DJY-Clang10/mipsel-linux-gnu/lib");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

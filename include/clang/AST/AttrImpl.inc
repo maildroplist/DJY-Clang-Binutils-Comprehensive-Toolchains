@@ -6370,7 +6370,7 @@ const char *OMPDeclareTargetDeclAttr::getSpelling() const {
 }
 
 OMPDeclareVariantAttr *OMPDeclareVariantAttr::clone(ASTContext &C) const {
-  auto *A = new (C) OMPDeclareVariantAttr(C, *this, variantFuncRef, score, ctxSelectorSet, ctxScore, ctxSelector, getImplVendor());
+  auto *A = new (C) OMPDeclareVariantAttr(C, *this, variantFuncRef, score, ctxSelectorSet, ctxScore, ctxSelector, implVendors_, implVendors_Size);
   A->Inherited = Inherited;
   A->IsPackExpansion = IsPackExpansion;
   A->setImplicit(Implicit);

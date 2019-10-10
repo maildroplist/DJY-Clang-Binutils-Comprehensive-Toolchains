@@ -8,8 +8,8 @@ set(Polly_BUNDLED_ISL ON)
 set(Polly_ENABLE_GPGPU_CODEGEN OFF)
 
 set(Polly_DEFINITIONS ${LLVM_DEFINITIONS})
-set(Polly_INCLUDE_DIRS /root/Android/Toolchains/out/clang/djy/djy-clang-10/include;/root/Android/Toolchains/out/clang/djy/djy-clang-10/include/polly ${LLVM_INCLUDE_DIRS})
-set(Polly_LIBRARY_DIRS /root/Android/Toolchains/out/clang/djy/djy-clang-10/lib)
+set(Polly_INCLUDE_DIRS /root/Desktop/DJY-Clang10/include;/root/Desktop/DJY-Clang10/include/polly ${LLVM_INCLUDE_DIRS})
+set(Polly_LIBRARY_DIRS /root/Desktop/DJY-Clang10/lib)
 set(Polly_EXPORTED_TARGETS Polly;PollyISL;LLVMPolly)
 set(Polly_LIBRARIES ${LLVM_LIBRARIES} ${Polly_EXPORTED_TARGETS})
 
