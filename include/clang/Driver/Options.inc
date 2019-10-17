@@ -491,7 +491,7 @@ OPTION(prefix_1, "emit-header-module", emit_header_module, Flag, Action_Group, I
        "Generate pre-compiled module file from a set of header files", nullptr, nullptr)
 OPTION(prefix_1, "emit-html", emit_html, Flag, Action_Group, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Output input source as HTML", nullptr, nullptr)
-OPTION(prefix_1, "emit-interface-stubs", emit_iterface_stubs, Flag, Action_Group, INVALID, nullptr, CC1Option, 0,
+OPTION(prefix_1, "emit-interface-stubs", emit_interface_stubs, Flag, Action_Group, INVALID, nullptr, CC1Option, 0,
        "Generate Inteface Stub Files.", nullptr, nullptr)
 OPTION(prefix_1, "emit-llvm-bc", emit_llvm_bc, Flag, Action_Group, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Build ASTs then convert to LLVM, emit .bc file", nullptr, nullptr)
@@ -931,7 +931,7 @@ OPTION(prefix_1, "fforce-enable-int128", fforce_enable_int128, Flag, f_Group, IN
 OPTION(prefix_1, "fforce-experimental-new-constant-interpreter", fforce_experimental_new_constant_interpreter, Flag, f_Group, INVALID, nullptr, CC1Option, 0,
        "Force the use of the experimental new constant interpreter, failing on missing features", nullptr, nullptr)
 OPTION(prefix_1, "ffp-contract=", ffp_contract, Joined, f_Group, INVALID, nullptr, CC1Option, 0,
-       "Form fused FP ops (e.g. FMAs): fast (everywhere) | on (according to FP_CONTRACT pragma, default) | off (never fuse)", nullptr, "fast,on,off")
+       "Form fused FP ops (e.g. FMAs): fast (everywhere) | on (according to FP_CONTRACT pragma) | off (never fuse). Default is 'fast' for CUDA/HIP and 'on' otherwise.", nullptr, "fast,on,off")
 OPTION(prefix_1, "ffpe-trap=", ffpe_trap_EQ, Joined, gfortran_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "ffree-form", free_form_f, Flag, gfortran_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "ffree-line-length-", ffree_line_length_VALUE, Joined, gfortran_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
@@ -953,6 +953,8 @@ OPTION(prefix_1, "fgnu-runtime", fgnu_runtime, Flag, f_Group, INVALID, nullptr, 
        "Generate output compatible with the standard GNU Objective-C runtime", nullptr, nullptr)
 OPTION(prefix_1, "fgnu89-inline", fgnu89_inline, Flag, f_Group, INVALID, nullptr, CC1Option, 0,
        "Use the gnu89 inline semantics", nullptr, nullptr)
+OPTION(prefix_1, "fgnuc-version=", fgnuc_version_EQ, Joined, f_Group, INVALID, nullptr, CC1Option | CoreOption, 0,
+       "Sets various macros to claim compatibility with the given GCC version (default is 4.2.1)", nullptr, nullptr)
 OPTION(prefix_1, "fgnu", gnu_f, Flag, clang_ignored_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fgpu-rdc", fgpu_rdc, Flag, INVALID, INVALID, nullptr, CC1Option, 0,
        "Generate relocatable device code, also known as separate compilation mode.", nullptr, nullptr)
@@ -1109,6 +1111,8 @@ OPTION(prefix_1, "fmodules-ts", fmodules_ts, Flag, f_Group, INVALID, nullptr, CC
        "Enable support for the C++ Modules TS", nullptr, nullptr)
 OPTION(prefix_1, "fmodules-user-build-path", fmodules_user_build_path, Separate, i_Group, INVALID, nullptr, DriverOption | CC1Option, 0,
        "Specify the module user build path", "<directory>", nullptr)
+OPTION(prefix_1, "fmodules-validate-input-files-content", fmodules_validate_input_files_content, Flag, f_Group, INVALID, nullptr, DriverOption, 0,
+       "Validate PCM input files based on content if mtime differs", nullptr, nullptr)
 OPTION(prefix_1, "fmodules-validate-once-per-build-session", fmodules_validate_once_per_build_session, Flag, i_Group, INVALID, nullptr, CC1Option, 0,
        "Don't verify input files for the modules if the module has been successfully validated or loaded during this build session", nullptr, nullptr)
 OPTION(prefix_1, "fmodules-validate-system-headers", fmodules_validate_system_headers, Flag, i_Group, INVALID, nullptr, CC1Option, 0,
@@ -1581,6 +1585,8 @@ OPTION(prefix_1, "fno-xray-always-emit-typedevents", fnoxray_always_emit_typedev
 OPTION(prefix_1, "fno-xray-instrument", fnoxray_instrument, Flag, f_Group, INVALID, nullptr, CC1Option, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fno-zero-initialized-in-bss", fno_zero_initialized_in_bss, Flag, f_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fno-zvector", fno_zvector, Flag, f_Group, INVALID, nullptr, CC1Option, 0, nullptr, nullptr, nullptr)
+OPTION(prefix_1, "fno_modules-validate-input-files-content", fno_modules_validate_input_files_content, Flag, f_Group, INVALID, nullptr, DriverOption, 0, nullptr, nullptr, nullptr)
+OPTION(prefix_1, "fno_pch-validate-input-files-content", fno_pch_validate_input_files_content, Flag, f_Group, INVALID, nullptr, DriverOption, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fnon-call-exceptions", non_call_exceptions_f, Flag, clang_ignored_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fnoopenmp-relocatable-target", fnoopenmp_relocatable_target, Flag, f_Group, INVALID, nullptr, CC1Option | NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fnoopenmp-use-tls", fnoopenmp_use_tls, Flag, f_Group, INVALID, nullptr, CC1Option | NoArgumentUnused | HelpHidden, 0, nullptr, nullptr, nullptr)
@@ -1685,6 +1691,8 @@ OPTION(prefix_1, "fpass-plugin=", fpass_plugin_EQ, Joined, f_Group, INVALID, nul
 OPTION(prefix_1, "fpcc-struct-return", fpcc_struct_return, Flag, f_Group, INVALID, nullptr, CC1Option, 0,
        "Override the default ABI to return all structs on the stack", nullptr, nullptr)
 OPTION(prefix_1, "fpch-preprocess", fpch_preprocess, Flag, f_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
+OPTION(prefix_1, "fpch-validate-input-files-content", fpch_validate_input_files_content, Flag, f_Group, INVALID, nullptr, DriverOption, 0,
+       "Validate PCH input files based on content if mtime differs", nullptr, nullptr)
 OPTION(prefix_1, "fpeel-loops", peel_loops_f, Flag, clang_ignored_gcc_optimization_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fpermissive", permissive_f, Flag, clang_ignored_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fPIC", fPIC, Flag, f_Group, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
@@ -1958,7 +1966,7 @@ OPTION(prefix_1, "ftime-report", ftime_report, Flag, f_Group, INVALID, nullptr, 
 OPTION(prefix_1, "ftime-trace-granularity=", ftime_trace_granularity_EQ, Joined, f_Group, INVALID, nullptr, CC1Option | CoreOption, 0,
        "Minimum time granularity (in microseconds) traced by time profiler", nullptr, nullptr)
 OPTION(prefix_1, "ftime-trace", ftime_trace, Flag, f_Group, INVALID, nullptr, CC1Option | CoreOption, 0,
-       "Turn on time profiler", nullptr, nullptr)
+       "Turn on time profiler. Generates JSON file based on output filename.", nullptr, nullptr)
 OPTION(prefix_1, "ftls-model=", ftlsmodel_EQ, Joined, f_Group, INVALID, nullptr, CC1Option, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "ftls-model", tls_model_f, Flag, clang_ignored_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "ftracer", tracer_f, Flag, clang_ignored_gcc_optimization_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
@@ -2012,6 +2020,8 @@ OPTION(prefix_1, "fuse-linker-plugin", use_linker_plugin_f, Flag, clang_ignored_
 OPTION(prefix_1, "fuse-register-sized-bitfield-access", fuse_register_sized_bitfield_access, Flag, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Use register sized accesses to bit-fields, when possible.", nullptr, nullptr)
 OPTION(prefix_2, "FU", _SLASH_FU, JoinedOrSeparate, cl_Group, INVALID, nullptr, CLOption | DriverOption | CLOption, 0, nullptr, nullptr, nullptr)
+OPTION(prefix_1, "fvalidate-ast-input-files-content", fvalidate_ast_input_files_content, Flag, f_Group, INVALID, nullptr, CC1Option, 0,
+       "Compute and store the hash of input files used to build an AST. Files with mismatching mtime's are considered valid if both contents is identical", nullptr, nullptr)
 OPTION(prefix_1, "fvariable-expansion-in-unroller", variable_expansion_in_unroller_f, Flag, clang_ignored_gcc_optimization_f_Group, INVALID, nullptr, Ignored, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "fveclib=", fveclib, Joined, f_Group, INVALID, nullptr, CC1Option, 0,
        "Use the given vector functions library", nullptr, "Accelerate,MASSV,SVML,none")
@@ -2259,7 +2269,7 @@ OPTION(prefix_1, "init-only", init_only, Flag, Action_Group, INVALID, nullptr, C
 OPTION(prefix_1, "init", init, Separate, INVALID, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "install_name", install__name, Separate, INVALID, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "integrated-as", anonymous_33, Flag, INVALID, fintegrated_as, nullptr, DriverOption, 0, nullptr, nullptr, nullptr)
-OPTION(prefix_1, "interface-stub-version=", iterface_stub_version_EQ, JoinedOrSeparate, INVALID, INVALID, nullptr, CC1Option, 0, nullptr, nullptr, nullptr)
+OPTION(prefix_1, "interface-stub-version=", interface_stub_version_EQ, JoinedOrSeparate, INVALID, INVALID, nullptr, CC1Option, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "internal-externc-isystem", internal_externc_isystem, JoinedOrSeparate, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,
        "Add directory to the internal system include search path with implicit extern \"C\" semantics; these are assumed to not be user-provided and are used to model system and standard headers' paths.", "<directory>", nullptr)
 OPTION(prefix_1, "internal-isystem", internal_isystem, JoinedOrSeparate, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,
@@ -3343,6 +3353,8 @@ OPTION(prefix_1, "serialize-diagnostic-file", diagnostic_serialized_file, Separa
        "File for serializing diagnostics in a binary format", "<filename>", nullptr)
 OPTION(prefix_4, "serialize-diagnostics", _serialize_diags, Separate, INVALID, INVALID, nullptr, DriverOption, 0,
        "Serialize compiler diagnostics to a file", nullptr, nullptr)
+OPTION(prefix_1, "setup-static-analyzer", setup_static_analyzer, Flag, INVALID, INVALID, nullptr, CC1Option | NoDriverOption, 0,
+       "Set up preprocessor for static analyzer (done automatically when static analyzer is run).", nullptr, nullptr)
 OPTION(prefix_1, "shared-libasan", anonymous_7, Flag, INVALID, shared_libsan, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "shared-libgcc", shared_libgcc, Flag, INVALID, INVALID, nullptr, 0, 0, nullptr, nullptr, nullptr)
 OPTION(prefix_1, "shared-libsan", shared_libsan, Flag, INVALID, INVALID, nullptr, 0, 0,

@@ -872,6 +872,10 @@
   bool VisitPragmaClangDataSectionAttr(PragmaClangDataSectionAttr *A) {
     return true; 
   }
+  bool TraversePragmaClangRelroSectionAttr(PragmaClangRelroSectionAttr *A);
+  bool VisitPragmaClangRelroSectionAttr(PragmaClangRelroSectionAttr *A) {
+    return true; 
+  }
   bool TraversePragmaClangRodataSectionAttr(PragmaClangRodataSectionAttr *A);
   bool VisitPragmaClangRodataSectionAttr(PragmaClangRodataSectionAttr *A) {
     return true; 
@@ -3256,6 +3260,15 @@ bool VISITORCLASS<Derived>::TraversePragmaClangDataSectionAttr(PragmaClangDataSe
 }
 
 template <typename Derived>
+bool VISITORCLASS<Derived>::TraversePragmaClangRelroSectionAttr(PragmaClangRelroSectionAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitPragmaClangRelroSectionAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
 bool VISITORCLASS<Derived>::TraversePragmaClangRodataSectionAttr(PragmaClangRodataSectionAttr *A) {
   if (!getDerived().VisitAttr(A))
     return false;
@@ -4358,6 +4371,8 @@ bool VISITORCLASS<Derived>::TraverseAttr(Attr *A) {
       return getDerived().TraversePragmaClangBSSSectionAttr(cast<PragmaClangBSSSectionAttr>(A));
     case attr::PragmaClangDataSection:
       return getDerived().TraversePragmaClangDataSectionAttr(cast<PragmaClangDataSectionAttr>(A));
+    case attr::PragmaClangRelroSection:
+      return getDerived().TraversePragmaClangRelroSectionAttr(cast<PragmaClangRelroSectionAttr>(A));
     case attr::PragmaClangRodataSection:
       return getDerived().TraversePragmaClangRodataSectionAttr(cast<PragmaClangRodataSectionAttr>(A));
     case attr::PragmaClangTextSection:

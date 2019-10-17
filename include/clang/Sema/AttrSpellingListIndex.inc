@@ -1632,6 +1632,9 @@
   case AT_PragmaClangDataSection: {
     break;
   }
+  case AT_PragmaClangRelroSection: {
+    break;
+  }
   case AT_PragmaClangRodataSection: {
     break;
   }

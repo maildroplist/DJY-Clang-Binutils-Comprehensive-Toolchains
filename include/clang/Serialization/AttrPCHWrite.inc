@@ -1437,6 +1437,13 @@ Record.push_back(SA->getPCS());
     Record.AddString(SA->getName());
     break;
   }
+  case attr::PragmaClangRelroSection: {
+    const auto *SA = cast<PragmaClangRelroSectionAttr>(A);
+    Record.push_back(SA->isInherited());
+    Record.push_back(A->isImplicit());
+    Record.AddString(SA->getName());
+    break;
+  }
   case attr::PragmaClangRodataSection: {
     const auto *SA = cast<PragmaClangRodataSectionAttr>(A);
     Record.push_back(SA->isInherited());

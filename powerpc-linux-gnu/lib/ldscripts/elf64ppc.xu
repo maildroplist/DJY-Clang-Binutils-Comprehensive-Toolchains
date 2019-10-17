@@ -1,4 +1,4 @@
-/* Script for ld -Ur: link w/out relocation, do create constructors */
+/* Script for -Ur */
 /* Copyright (C) 2014-2019 Free Software Foundation, Inc.
    Copying and distribution of this script, with or without modification,
    are permitted in any medium without royalty provided the copyright
@@ -53,17 +53,17 @@ SECTIONS
   .init         0 :
   {
     KEEP (*(SORT_NONE(.init)))
-  } =0x60000000
+  }
   .text         0 :
   {
     *(.text .stub)
     /* .gnu.warning sections are handled specially by elf.em.  */
     *(.gnu.warning)
-  } =0x60000000
+  }
   .fini         0 :
   {
     KEEP (*(SORT_NONE(.fini)))
-  } =0x60000000
+  }
   .rodata       0 : { *(.rodata) }
   .rodata1      0 : { *(.rodata1) }
   .sdata2       0 :

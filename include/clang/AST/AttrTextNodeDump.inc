@@ -618,6 +618,10 @@
     const auto *SA = cast<PragmaClangDataSectionAttr>(A); (void)SA;
     OS << " \"" << SA->getName() << "\"";
   }
+  void VisitPragmaClangRelroSectionAttr(const PragmaClangRelroSectionAttr *A) {
+    const auto *SA = cast<PragmaClangRelroSectionAttr>(A); (void)SA;
+    OS << " \"" << SA->getName() << "\"";
+  }
   void VisitPragmaClangRodataSectionAttr(const PragmaClangRodataSectionAttr *A) {
     const auto *SA = cast<PragmaClangRodataSectionAttr>(A); (void)SA;
     OS << " \"" << SA->getName() << "\"";

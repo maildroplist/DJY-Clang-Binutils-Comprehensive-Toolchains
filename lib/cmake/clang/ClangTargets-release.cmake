@@ -235,6 +235,16 @@ set_target_properties(clangDependencyScanning PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS clangDependencyScanning )
 list(APPEND _IMPORT_CHECK_FILES_FOR_clangDependencyScanning "${_IMPORT_PREFIX}/lib/libclangDependencyScanning.a" )
 
+# Import target "clangTransformer" for configuration "Release"
+set_property(TARGET clangTransformer APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(clangTransformer PROPERTIES
+  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
+  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/libclangTransformer.a"
+  )
+
+list(APPEND _IMPORT_CHECK_TARGETS clangTransformer )
+list(APPEND _IMPORT_CHECK_FILES_FOR_clangTransformer "${_IMPORT_PREFIX}/lib/libclangTransformer.a" )
+
 # Import target "clangTooling" for configuration "Release"
 set_property(TARGET clangTooling APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(clangTooling PROPERTIES

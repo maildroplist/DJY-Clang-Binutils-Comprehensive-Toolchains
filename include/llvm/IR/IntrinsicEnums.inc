@@ -489,6 +489,10 @@
     aarch64_sve_neg,                           // llvm.aarch64.sve.neg
     aarch64_sve_punpkhi,                       // llvm.aarch64.sve.punpkhi
     aarch64_sve_punpklo,                       // llvm.aarch64.sve.punpklo
+    aarch64_sve_sdot,                          // llvm.aarch64.sve.sdot
+    aarch64_sve_sdot_lane,                     // llvm.aarch64.sve.sdot.lane
+    aarch64_sve_udot,                          // llvm.aarch64.sve.udot
+    aarch64_sve_udot_lane,                     // llvm.aarch64.sve.udot.lane
     aarch64_tagp,                              // llvm.aarch64.tagp
     aarch64_tcancel,                           // llvm.aarch64.tcancel
     aarch64_tcommit,                           // llvm.aarch64.tcommit
@@ -4198,21 +4202,37 @@
     nvvm_saturate_f,                           // llvm.nvvm.saturate.f
     nvvm_saturate_ftz_f,                       // llvm.nvvm.saturate.ftz.f
     nvvm_shfl_bfly_f32,                        // llvm.nvvm.shfl.bfly.f32
+    nvvm_shfl_bfly_f32p,                       // llvm.nvvm.shfl.bfly.f32p
     nvvm_shfl_bfly_i32,                        // llvm.nvvm.shfl.bfly.i32
+    nvvm_shfl_bfly_i32p,                       // llvm.nvvm.shfl.bfly.i32p
     nvvm_shfl_down_f32,                        // llvm.nvvm.shfl.down.f32
+    nvvm_shfl_down_f32p,                       // llvm.nvvm.shfl.down.f32p
     nvvm_shfl_down_i32,                        // llvm.nvvm.shfl.down.i32
+    nvvm_shfl_down_i32p,                       // llvm.nvvm.shfl.down.i32p
     nvvm_shfl_idx_f32,                         // llvm.nvvm.shfl.idx.f32
+    nvvm_shfl_idx_f32p,                        // llvm.nvvm.shfl.idx.f32p
     nvvm_shfl_idx_i32,                         // llvm.nvvm.shfl.idx.i32
+    nvvm_shfl_idx_i32p,                        // llvm.nvvm.shfl.idx.i32p
     nvvm_shfl_sync_bfly_f32,                   // llvm.nvvm.shfl.sync.bfly.f32
+    nvvm_shfl_sync_bfly_f32p,                  // llvm.nvvm.shfl.sync.bfly.f32p
     nvvm_shfl_sync_bfly_i32,                   // llvm.nvvm.shfl.sync.bfly.i32
+    nvvm_shfl_sync_bfly_i32p,                  // llvm.nvvm.shfl.sync.bfly.i32p
     nvvm_shfl_sync_down_f32,                   // llvm.nvvm.shfl.sync.down.f32
+    nvvm_shfl_sync_down_f32p,                  // llvm.nvvm.shfl.sync.down.f32p
     nvvm_shfl_sync_down_i32,                   // llvm.nvvm.shfl.sync.down.i32
+    nvvm_shfl_sync_down_i32p,                  // llvm.nvvm.shfl.sync.down.i32p
     nvvm_shfl_sync_idx_f32,                    // llvm.nvvm.shfl.sync.idx.f32
+    nvvm_shfl_sync_idx_f32p,                   // llvm.nvvm.shfl.sync.idx.f32p
     nvvm_shfl_sync_idx_i32,                    // llvm.nvvm.shfl.sync.idx.i32
+    nvvm_shfl_sync_idx_i32p,                   // llvm.nvvm.shfl.sync.idx.i32p
     nvvm_shfl_sync_up_f32,                     // llvm.nvvm.shfl.sync.up.f32
+    nvvm_shfl_sync_up_f32p,                    // llvm.nvvm.shfl.sync.up.f32p
     nvvm_shfl_sync_up_i32,                     // llvm.nvvm.shfl.sync.up.i32
+    nvvm_shfl_sync_up_i32p,                    // llvm.nvvm.shfl.sync.up.i32p
     nvvm_shfl_up_f32,                          // llvm.nvvm.shfl.up.f32
+    nvvm_shfl_up_f32p,                         // llvm.nvvm.shfl.up.f32p
     nvvm_shfl_up_i32,                          // llvm.nvvm.shfl.up.i32
+    nvvm_shfl_up_i32p,                         // llvm.nvvm.shfl.up.i32p
     nvvm_sin_approx_f,                         // llvm.nvvm.sin.approx.f
     nvvm_sin_approx_ftz_f,                     // llvm.nvvm.sin.approx.ftz.f
     nvvm_sqrt_approx_f,                        // llvm.nvvm.sqrt.approx.f
@@ -5854,6 +5874,8 @@
     wasm_tls_size,                             // llvm.wasm.tls.size
     wasm_trunc_saturate_signed,                // llvm.wasm.trunc.saturate.signed
     wasm_trunc_saturate_unsigned,              // llvm.wasm.trunc.saturate.unsigned
+    wasm_trunc_signed,                         // llvm.wasm.trunc.signed
+    wasm_trunc_unsigned,                       // llvm.wasm.trunc.unsigned
     wasm_widen_high_signed,                    // llvm.wasm.widen.high.signed
     wasm_widen_high_unsigned,                  // llvm.wasm.widen.high.unsigned
     wasm_widen_low_signed,                     // llvm.wasm.widen.low.signed

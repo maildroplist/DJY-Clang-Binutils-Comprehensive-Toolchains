@@ -2483,6 +2483,15 @@ static bool checkPragmaClangDataSectionAppertainsTo(Sema &S, const ParsedAttr &A
   return true;
 }
 
+static bool checkPragmaClangRelroSectionAppertainsTo(Sema &S, const ParsedAttr &Attr, const Decl *D) {
+  if (!D || (!isGlobalVar(D))) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << "global variables";
+    return false;
+  }
+  return true;
+}
+
 static bool checkPragmaClangRodataSectionAppertainsTo(Sema &S, const ParsedAttr &Attr, const Decl *D) {
   if (!D || (!isGlobalVar(D))) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
@@ -3417,6 +3426,7 @@ static const ParsedAttrInfo AttrInfoMap[ParsedAttr::UnknownAttribute + 1] = {
   { 0, 1, 0, 0, 0, 0, 0, 1, checkPointerAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, matchRulesForPointer },  // AT_Pointer
   { 1, 0, 0, 0, 0, 0, 0, 0, checkPragmaClangBSSSectionAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PragmaClangBSSSection
   { 1, 0, 0, 0, 0, 0, 0, 0, checkPragmaClangDataSectionAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PragmaClangDataSection
+  { 1, 0, 0, 0, 0, 0, 0, 0, checkPragmaClangRelroSectionAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PragmaClangRelroSection
   { 1, 0, 0, 0, 0, 0, 0, 0, checkPragmaClangRodataSectionAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PragmaClangRodataSection
   { 1, 0, 0, 0, 0, 0, 0, 0, checkPragmaClangTextSectionAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PragmaClangTextSection
   { 0, 0, 0, 0, 1, 0, 0, 0, defaultAppertainsTo, defaultDiagnoseLangOpts, defaultTargetRequirements, defaultSpellingIndexToSemanticSpelling, nullptr },  // AT_PreserveAll

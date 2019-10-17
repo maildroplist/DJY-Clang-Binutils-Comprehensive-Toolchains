@@ -1915,6 +1915,15 @@
     New->setImplicit(isImplicit);
     break;
   }
+  case attr::PragmaClangRelroSection: {
+    bool isInherited = Record.readInt();
+    bool isImplicit = Record.readInt();
+    std::string name= Record.readString();
+    New = new (Context) PragmaClangRelroSectionAttr(Context, Info, name);
+    cast<InheritableAttr>(New)->setInherited(isInherited);
+    New->setImplicit(isImplicit);
+    break;
+  }
   case attr::PragmaClangRodataSection: {
     bool isInherited = Record.readInt();
     bool isImplicit = Record.readInt();

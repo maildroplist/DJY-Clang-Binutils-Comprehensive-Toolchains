@@ -1,4 +1,4 @@
-/* Script for -z combreloc -z now -z relro -z separate-code: combine and sort reloc sections with separate code segment */
+/* Script for -z combreloc -z separate-code -z relro -z now */
 /* Copyright (C) 2014-2019 Free Software Foundation, Inc.
    Copying and distribution of this script, with or without modification,
    are permitted in any medium without royalty provided the copyright
@@ -54,7 +54,7 @@ SECTIONS
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
-  } =0x60000000
+  }
   .text           :
   {
     *(.text.unlikely .text.*_unlikely .text.unlikely.*)
@@ -65,11 +65,11 @@ SECTIONS
     /* .gnu.warning sections are handled specially by elf.em.  */
     *(.gnu.warning)
     *(.sfpr .glink)
-  } =0x60000000
+  }
   .fini           :
   {
     KEEP (*(SORT_NONE(.fini)))
-  } =0x60000000
+  }
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);

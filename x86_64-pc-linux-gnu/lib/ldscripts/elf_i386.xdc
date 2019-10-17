@@ -1,4 +1,4 @@
-/* Script for -pie -z combreloc: position independent executable, combine & sort relocs */
+/* Script for -pie -z combreloc */
 /* Copyright (C) 2014-2019 Free Software Foundation, Inc.
    Copying and distribution of this script, with or without modification,
    are permitted in any medium without royalty provided the copyright

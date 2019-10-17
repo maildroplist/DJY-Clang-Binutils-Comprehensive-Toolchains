@@ -11668,6 +11668,66 @@ public:
   static bool classof(const Attr *A) { return A->getKind() == attr::PragmaClangDataSection; }
 };
 
+class PragmaClangRelroSectionAttr : public InheritableAttr {
+unsigned nameLength;
+char *name;
+
+public:
+  static PragmaClangRelroSectionAttr *CreateImplicit(ASTContext &Ctx, llvm::StringRef Name, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
+    auto *A = new (Ctx) PragmaClangRelroSectionAttr(Ctx, CommonInfo, Name);
+    A->setImplicit(true);
+    if (!A->isAttributeSpellingListCalculated() && !A->getAttrName())
+      A->setAttributeSpellingListIndex(0);
+    return A;
+  }
+
+  static PragmaClangRelroSectionAttr *Create(ASTContext &Ctx, llvm::StringRef Name, const AttributeCommonInfo &CommonInfo = {SourceRange{}}) {
+    auto *A = new (Ctx) PragmaClangRelroSectionAttr(Ctx, CommonInfo, Name);
+    if (!A->isAttributeSpellingListCalculated() && !A->getAttrName())
+      A->setAttributeSpellingListIndex(0);
+    return A;
+  }
+
+  static PragmaClangRelroSectionAttr *CreateImplicit(ASTContext &Ctx, llvm::StringRef Name, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
+    AttributeCommonInfo I(Range, NoSemaHandlerAttribute, Syntax);
+    return CreateImplicit(Ctx, Name, I);
+  }
+  static PragmaClangRelroSectionAttr *Create(ASTContext &Ctx, llvm::StringRef Name, SourceRange Range, AttributeCommonInfo::Syntax Syntax) {
+    AttributeCommonInfo I(Range, NoSemaHandlerAttribute, Syntax);
+    return Create(Ctx, Name, I);
+  }
+  PragmaClangRelroSectionAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+              , llvm::StringRef Name
+             )
+    : InheritableAttr(Ctx, CommonInfo, attr::PragmaClangRelroSection, false, false)
+              , nameLength(Name.size()),name(new (Ctx, 1) char[nameLength])
+  {
+      if (!Name.empty())
+        std::memcpy(name, Name.data(), nameLength);
+  }
+
+  PragmaClangRelroSectionAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+  llvm::StringRef getName() const {
+    return llvm::StringRef(name, nameLength);
+  }
+  unsigned getNameLength() const {
+    return nameLength;
+  }
+  void setName(ASTContext &C, llvm::StringRef S) {
+    nameLength = S.size();
+    this->name = new (C, 1) char [nameLength];
+    if (!S.empty())
+      std::memcpy(this->name, S.data(), nameLength);
+  }
+
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::PragmaClangRelroSection; }
+};
+
 class PragmaClangRodataSectionAttr : public InheritableAttr {
 unsigned nameLength;
 char *name;

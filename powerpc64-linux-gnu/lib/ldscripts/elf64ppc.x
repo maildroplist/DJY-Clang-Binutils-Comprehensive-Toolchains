@@ -55,7 +55,7 @@ SECTIONS
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
-  } =0x60000000
+  }
   .text           :
   {
     *(.text.unlikely .text.*_unlikely .text.unlikely.*)
@@ -66,11 +66,11 @@ SECTIONS
     /* .gnu.warning sections are handled specially by elf.em.  */
     *(.gnu.warning)
     *(.sfpr .glink)
-  } =0x60000000
+  }
   .fini           :
   {
     KEEP (*(SORT_NONE(.fini)))
-  } =0x60000000
+  }
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);

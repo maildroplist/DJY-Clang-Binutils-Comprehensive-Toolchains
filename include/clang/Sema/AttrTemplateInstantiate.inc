@@ -994,6 +994,10 @@ Attr *instantiateTemplateAttribute(const Attr *At, ASTContext &C, Sema &S,
       const auto *A = cast<PragmaClangDataSectionAttr>(At);
       return A->clone(C);
     }
+    case attr::PragmaClangRelroSection: {
+      const auto *A = cast<PragmaClangRelroSectionAttr>(At);
+      return A->clone(C);
+    }
     case attr::PragmaClangRodataSection: {
       const auto *A = cast<PragmaClangRodataSectionAttr>(At);
       return A->clone(C);
@@ -1988,6 +1992,9 @@ Attr *instantiateTemplateAttributeForDecl(const Attr *At,
       return nullptr;
     }
     case attr::PragmaClangDataSection: {
+      return nullptr;
+    }
+    case attr::PragmaClangRelroSection: {
       return nullptr;
     }
     case attr::PragmaClangRodataSection: {
